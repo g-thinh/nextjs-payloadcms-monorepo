@@ -1,0 +1,12 @@
+{
+  "name": "nextjs-payloadcms-monorepo",
+  "version": "1.0.0",
+  "description": "A monorepo for a Next.js and PayloadCMS application",
+  "author": "Gia Thinh Nguyen",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "web",
+    "cms"
+  ]
+}
