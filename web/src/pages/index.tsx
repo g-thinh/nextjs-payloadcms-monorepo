@@ -1,3 +1,4 @@
+import { Article, Main, Section } from '@/components/Layout';
 import Head from 'next/head';
 
 export default function Home() {
@@ -6,7 +7,13 @@ export default function Home() {
       <Head>
         <title>Next Web App</title>
       </Head>
-      <main>Hello World</main>
+      <Main>
+        <Article>
+          <Section>
+            <h1>Welcome to your Next.js App</h1>
+          </Section>
+        </Article>
+      </Main>
     </>
   );
 }
