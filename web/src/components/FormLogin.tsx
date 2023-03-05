@@ -9,7 +9,7 @@ const Form = styled('form', {
   border: '1px solid black',
   borderRadius: '$md',
   width: 'fit-content',
-  maxWidth: '$md',
+  maxWidth: 'min($md, 100%)',
   mx: 'auto',
   my: '$10',
   px: '$4',
@@ -37,7 +37,7 @@ const Label = styled('label', {
 });
 const Input = styled('input', {
   padding: '$2',
-  width: '$sm',
+  width: 'min($sm, 100%)',
 });
 
 const TextError = styled('p', {
