@@ -1,3 +1,4 @@
+import { useAuth } from '@/contexts/AuthContext';
 import { styled } from '@/styles/stitches.config';
 import NextLink from 'next/link';
 
@@ -21,6 +22,7 @@ export const Container = styled('header', {
   ul: {
     display: 'flex',
     gap: '$4',
+    alignItems: 'center',
   },
 });
 
@@ -28,7 +30,26 @@ const StyledLink = styled(NextLink, {
   color: 'white',
 });
 
+const Button = styled('button', {
+  px: '$4',
+  py: '$2',
+  backgroundColor: 'hsl(1,0%, 100%)',
+  color: 'black',
+  border: '1px solid black',
+  borderRadius: '$md',
+
+  '&:hover': {
+    cursor: 'pointer',
+    backgroundColor: 'hsl(1,0%,80%)',
+  },
+
+  '&:active': {
+    backgroundColor: 'hsl(1,0%,90%)',
+  },
+});
+
 export function Header() {
+  const { user, logout } = useAuth();
   return (
     <Container>
       <h1>
@@ -42,6 +63,11 @@ export function Header() {
           <li>
             <StyledLink href="#">Blog</StyledLink>
           </li>
+          {user && (
+            <li>
+              <Button onClick={logout}>Logout</Button>
+            </li>
+          )}
         </ul>
       </nav>
     </Container>
