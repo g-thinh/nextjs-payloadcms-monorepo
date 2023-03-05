@@ -41,7 +41,7 @@ export function Footer() {
         <Stack>
           <p>Next App</p>
           <div>Made with ❤️ by Gia Thinh Nguyen</div>
-          <StyledLink href="/">
+          <StyledLink href="https://github.com/g-thinh/nextjs-payloadcms-monorepo" target="_blank">
             <GitHubLogoIcon />
             <span>Github</span>
           </StyledLink>
