@@ -7,6 +7,8 @@ export const Container = styled('header', {
   height: '4em',
   gridArea: '1 / 1 / 2 / 4',
   display: 'flex',
+  backgroundColor: 'hsl(0,0%,15%)',
+  color: 'white',
 
   alignItems: 'center',
   justifyContent: 'space-between',
@@ -22,19 +24,23 @@ export const Container = styled('header', {
   },
 });
 
+const StyledLink = styled(NextLink, {
+  color: 'white',
+});
+
 export function Header() {
   return (
     <Container>
       <h1>
-        <NextLink href="/">My Website</NextLink>
+        <StyledLink href="/">Next App</StyledLink>
       </h1>
       <nav>
         <ul>
           <li>
-            <NextLink href="#">About</NextLink>
+            <StyledLink href="#">About</StyledLink>
           </li>
           <li>
-            <NextLink href="#">Blog</NextLink>
+            <StyledLink href="#">Blog</StyledLink>
           </li>
         </ul>
       </nav>
