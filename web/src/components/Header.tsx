@@ -1,22 +1,24 @@
 import { useAuth } from '@/contexts/AuthContext';
 import { styled } from '@/styles/stitches.config';
 import NextLink from 'next/link';
+import { Section } from './Layout';
 
 export const Container = styled('header', {
   position: 'sticky',
   top: 0,
   height: '4em',
-  gridArea: '1 / 1 / 2 / 4',
   display: 'flex',
   backgroundColor: 'hsl(0,0%,15%)',
   color: 'white',
 
-  alignItems: 'center',
-  justifyContent: 'space-between',
-  padding: '0 1rem',
-
   h1: {
     fontSize: '$2xl',
+    '> a': {
+      textDecoration: 'none',
+      '&:hover': {
+        textDecoration: 'underline',
+      },
+    },
   },
 
   ul: {
@@ -52,24 +54,34 @@ export function Header() {
   const { user, logout } = useAuth();
   return (
     <Container>
-      <h1>
-        <StyledLink href="/">Next App</StyledLink>
-      </h1>
-      <nav>
-        <ul>
-          <li>
-            <StyledLink href="#">About</StyledLink>
-          </li>
-          <li>
-            <StyledLink href="#">Blog</StyledLink>
-          </li>
-          {user && (
+      <Section
+        css={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          padding: '0 1rem',
+        }}
+      >
+        <h1>
+          <StyledLink href="/">Next Payload Blog</StyledLink>
+        </h1>
+        <nav>
+          <ul>
             <li>
-              <Button onClick={logout}>Logout</Button>
+              <StyledLink href="/about">About</StyledLink>
             </li>
-          )}
-        </ul>
-      </nav>
+            <li>
+              <StyledLink href="/blog">Blog</StyledLink>
+            </li>
+
+            {user && (
+              <li>
+                <Button onClick={logout}>Logout</Button>
+              </li>
+            )}
+          </ul>
+        </nav>
+      </Section>
     </Container>
   );
 }

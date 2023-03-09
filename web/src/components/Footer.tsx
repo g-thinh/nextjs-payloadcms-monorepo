@@ -36,8 +36,8 @@ const StyledLink = styled(NextLink, {
 
 export function Footer() {
   return (
-    <Container>
-      <Section as="div">
+    <Container css={{ mt: '$24' }}>
+      <Section>
         <Stack>
           <p>Next App</p>
           <div>Made with ❤️ by Gia Thinh Nguyen</div>

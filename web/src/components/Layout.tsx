@@ -1,58 +1,82 @@
 import { styled } from '@/styles/stitches.config';
 
-const CONTENT_WIDTH = 'min(80ch,100%)';
+export const CONTENT_WIDTH = 'min(120ch,100%)';
 
 export const Layout = styled('div', {
   position: 'relative',
   display: 'flex',
   flexDirection: 'column',
   minHeight: '100vh',
+});
+
+export const Content = styled('div', {});
+
+export const Main = styled('main', {
+  flex: 1,
+  width: '100%',
+  maxWidth: CONTENT_WIDTH,
+  margin: '0 auto',
 
   '@lg': {
     display: 'grid',
     gridColumnGap: 0,
     gridRowGap: 0,
-    gridTemplateColumns: `1fr ${CONTENT_WIDTH} 1fr`,
-    gridTemplateRows: 'auto 1fr auto',
+    gridTemplateColumns: 'auto 1fr auto',
   },
-});
 
-export const Main = styled('main', {
-  flex: 1,
-  width: '100%',
-  '@lg': {
-    gridArea: '2 / 1 / 3 / 4',
-  },
-});
-
-export const Article = styled('article', {
-  maxWidth: CONTENT_WIDTH,
-  margin: '0 auto',
   variants: {
     type: {
       full: {
         maxWidth: '100%',
+        display: 'flex',
       },
     },
   },
 });
 
-export const Section = styled('section', {
+export const Article = styled('article', {
+  width: '100%',
   padding: '$4',
+});
+
+export const Section = styled('section', {
   maxWidth: CONTENT_WIDTH,
   margin: '0 auto',
   width: '100%',
+  height: '100%',
 });
 
 export const Aside = styled('aside', {
+  margin: '$4',
+  width: '10em',
+  padding: '$5',
+  border: '1px solid lightgray',
+  borderRadius: '$md',
+  minWidth: '25ch',
+
   '@lg': {
     position: 'sticky',
     alignSelf: 'baseline',
-    top: '2em',
-    gridArea: '2 / 3 / 3 / 4',
+    top: '5em',
   },
 });
 
 export const Navigation = styled('nav', {
-  gridArea: '2 / 1 / 3 / 2',
+  position: 'sticky',
+  alignSelf: 'baseline',
+  top: '4em',
+  width: '10em',
+  padding: '$5',
+  border: '1px solid black',
+  minWidth: '25ch',
+});
+
+export const Banner = styled('div', {
+  width: '100%',
+  height: '20vh',
+  backgroundColor: 'lightgray',
+
+  '& h2': {
+    fontSize: '$3xl',
+  },
 });
