@@ -1,16 +1,17 @@
+import { FormLogin } from '@/components/FormLogin';
 import { Article, Main, Section } from '@/components/Layout';
 import Head from 'next/head';
 
-export default function Home() {
+export default function LoginPage() {
   return (
     <>
       <Head>
-        <title>Next Web App</title>
+        <title>Login - Next Web App</title>
       </Head>
-      <Main>
+      <Main type="full">
         <Article>
           <Section>
-            <h2>Welcome to your Next.js App</h2>
+            <FormLogin />
           </Section>
         </Article>
       </Main>

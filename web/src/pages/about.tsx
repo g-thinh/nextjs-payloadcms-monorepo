@@ -3,6 +3,7 @@ import { RichText } from '@/components/RichText';
 import { getAboutPage } from '@/utils/api';
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next';
 import useSWR from 'swr';
+import Head from 'next/head';
 
 export async function getStaticProps(_context: GetStaticPropsContext) {
   try {
@@ -24,6 +25,9 @@ export default function AboutPage({ about }: InferGetStaticPropsType<typeof getS
   const { data } = useSWR([about?.id], getAboutPage, { fallbackData: about ?? undefined });
   return (
     <>
+      <Head>
+        <title>About - Next Web App</title>
+      </Head>
       <Banner>
         <Section css={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
           <h2>{data?.pageTitle}</h2>

@@ -2,6 +2,7 @@ import { Article, Banner, Main, Section } from '@/components/Layout';
 import { styled } from '@/styles/stitches.config';
 import { getPosts } from '@/utils/api';
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next';
+import Head from 'next/head';
 import NextLink from 'next/link';
 import useSWR from 'swr';
 
@@ -23,6 +24,9 @@ export default function BlogPage(props: InferGetServerSidePropsType<typeof getSe
 
   return (
     <>
+      <Head>
+        <title>Blog - Next Web App</title>
+      </Head>
       <Banner>
         <Section css={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
           <h2>Blog Posts</h2>

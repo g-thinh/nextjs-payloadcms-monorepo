@@ -2,6 +2,7 @@ import { Article, Main, Section } from '@/components/Layout';
 import { User } from 'cms/src/payload-types';
 import { getCookie } from 'cookies-next';
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next';
+import Head from 'next/head';
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { req, res } = context;
@@ -35,13 +36,18 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
 export default function ProfilePage(props: InferGetServerSidePropsType<typeof getServerSideProps>) {
   return (
-    <Main>
-      <Article>
-        <Section>
-          <h2>My Profile</h2>
-          <pre>{JSON.stringify(props.user, null, 2)}</pre>
-        </Section>
-      </Article>
-    </Main>
+    <>
+      <Head>
+        <title>Profile - Next Web App</title>
+      </Head>
+      <Main>
+        <Article>
+          <Section>
+            <h2>My Profile</h2>
+            <pre>{JSON.stringify(props.user, null, 2)}</pre>
+          </Section>
+        </Article>
+      </Main>
+    </>
   );
 }

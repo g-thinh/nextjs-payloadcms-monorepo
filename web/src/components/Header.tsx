@@ -74,9 +74,13 @@ export function Header() {
               <StyledLink href="/blog">Blog</StyledLink>
             </li>
 
-            {user && (
+            {user ? (
               <li>
                 <Button onClick={logout}>Logout</Button>
+              </li>
+            ) : (
+              <li>
+                <StyledLink href="/login">Login</StyledLink>
               </li>
             )}
           </ul>
