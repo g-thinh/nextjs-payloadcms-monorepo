@@ -2,6 +2,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { styled } from '@/styles/stitches.config';
 import NextLink from 'next/link';
 import { Section } from './Layout';
+import { SelectLocale } from './SelectLocale';
 
 export const Container = styled('header', {
   position: 'sticky',
@@ -67,6 +68,9 @@ export function Header() {
         </h1>
         <nav>
           <ul>
+            <li>
+              <SelectLocale />
+            </li>
             <li>
               <StyledLink href="/about">About</StyledLink>
             </li>
