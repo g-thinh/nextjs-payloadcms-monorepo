@@ -1,13 +1,18 @@
 import { PaginatedDocs } from 'payload/dist/mongoose/types';
-import { About, Post } from 'cms/src/payload-types';
+import { About, Blog, Post } from 'cms/src/payload-types';
 
 export const CMS_BASE_URL = process.env.NEXT_PUBLIC_SERVER_URL;
 
 type JsonResponse<T> = T & { errors?: Error[] };
 
-export async function getPosts() {
+type Options = {
+  locale?: 'en' | 'fr' | string;
+};
+
+export async function getPosts(options?: Options) {
   try {
-    const url = CMS_BASE_URL + '/api/posts';
+    const locale = '?locale=' + options?.locale;
+    const url = CMS_BASE_URL + '/api/posts' + locale;
     const response = await fetch(url, {
       method: 'GET',
       credentials: 'include',
@@ -28,9 +33,10 @@ export async function getPosts() {
   }
 }
 
-export async function getSinglePost(blogId: string) {
+export async function getSinglePost(blogId: string, options?: Options) {
   try {
-    const url = CMS_BASE_URL + '/api/posts/' + blogId;
+    const locale = '?locale=' + options?.locale;
+    const url = CMS_BASE_URL + '/api/posts/' + blogId + locale;
     const response = await fetch(url, {
       method: 'GET',
       credentials: 'include',
@@ -51,9 +57,34 @@ export async function getSinglePost(blogId: string) {
   }
 }
 
-export async function getAboutPage() {
+export async function getBlogPage(options?: Options) {
   try {
-    const url = CMS_BASE_URL + '/api/globals/about';
+    const locale = '?locale=' + options?.locale;
+    const url = CMS_BASE_URL + '/api/globals/blog' + locale;
+    const response = await fetch(url, {
+      method: 'GET',
+      credentials: 'include',
+    });
+
+    const json: JsonResponse<Blog> = await response.json();
+
+    if (json.errors) {
+      throw new Error(json.errors[0].message);
+    }
+
+    if (response.ok) {
+      return json;
+    }
+  } catch (e: unknown) {
+    console.error(e);
+    throw new Error(e as string);
+  }
+}
+
+export async function getAboutPage(options?: Options) {
+  try {
+    const locale = '?locale=' + options?.locale;
+    const url = CMS_BASE_URL + '/api/globals/about' + locale;
     const response = await fetch(url, {
       method: 'GET',
       credentials: 'include',

@@ -2,16 +2,18 @@ import { Article, Banner, Main, Section } from '@/components/Layout';
 import { RichText } from '@/components/RichText';
 import { getAboutPage } from '@/utils/api';
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next';
-import useSWR from 'swr';
 import Head from 'next/head';
+import useSWR from 'swr';
 
-export async function getStaticProps(_context: GetStaticPropsContext) {
+export async function getStaticProps(context: GetStaticPropsContext) {
   try {
-    const about = await getAboutPage();
+    const { locale } = context;
+    const about = await getAboutPage({ locale });
 
     return {
       props: {
         about,
+        locale,
       },
     };
   } catch (e) {
@@ -21,12 +23,15 @@ export async function getStaticProps(_context: GetStaticPropsContext) {
   }
 }
 
-export default function AboutPage({ about }: InferGetStaticPropsType<typeof getStaticProps>) {
-  const { data } = useSWR([about?.id], getAboutPage, { fallbackData: about ?? undefined });
+export default function AboutPage({ about, locale }: InferGetStaticPropsType<typeof getStaticProps>) {
+  const { data } = useSWR(['/about', locale], async () => await getAboutPage({ locale }), {
+    fallbackData: about,
+  });
+
   return (
     <>
       <Head>
-        <title>About - Next Web App</title>
+        <title>{data?.pageTitle} - Next Web App</title>
       </Head>
       <Banner>
         <Section css={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>

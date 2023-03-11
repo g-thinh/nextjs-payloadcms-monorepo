@@ -7,7 +7,7 @@ import useSWR from 'swr';
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   try {
-    const { params } = context;
+    const { params, locale } = context;
     const id = params?.['blog-id'];
 
     if (!id || typeof id !== 'string') {
@@ -16,11 +16,12 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       };
     }
 
-    const post = await getSinglePost(id);
+    const post = await getSinglePost(id, { locale });
 
     return {
       props: {
         post,
+        locale,
       },
     };
   } catch (e) {
@@ -30,13 +31,15 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   }
 }
 
-export default function BlogPostPage({ post }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  const { data } = useSWR([post?.id], getSinglePost, { fallbackData: post });
+export default function BlogPostPage({ post, locale }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  const { data } = useSWR([post?.id, locale], async () => post && (await getSinglePost(post?.id, { locale })), {
+    fallbackData: post,
+  });
 
   return (
     <>
       <Head>
-        <title>{post?.title} - Next Web App</title>
+        <title>{data?.title} - Next Web App</title>
       </Head>
       <Banner>
         <Section css={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>

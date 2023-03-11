@@ -1,6 +1,7 @@
 import { Article, Banner, Main, Section } from '@/components/Layout';
+import { RichText } from '@/components/RichText';
 import { styled } from '@/styles/stitches.config';
-import { getPosts } from '@/utils/api';
+import { getBlogPage, getPosts } from '@/utils/api';
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next';
 import Head from 'next/head';
 import NextLink from 'next/link';
@@ -11,16 +12,20 @@ const PostLink = styled(NextLink, {
 });
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const posts = await getPosts();
+  const { locale } = context;
+  const posts = await getPosts({ locale });
+  const blog = await getBlogPage({ locale });
   return {
     props: {
       posts,
+      blog,
+      locale,
     },
   };
 }
 
-export default function BlogPage(props: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  const { data } = useSWR(['posts'], getPosts, { fallbackData: props.posts });
+export default function BlogPage({ posts, blog, locale }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  const { data } = useSWR(['/posts', locale], async () => await getPosts({ locale }), { fallbackData: posts });
 
   return (
     <>
@@ -28,14 +33,14 @@ export default function BlogPage(props: InferGetServerSidePropsType<typeof getSe
         <title>Blog - Next Web App</title>
       </Head>
       <Banner>
-        <Section css={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-          <h2>Blog Posts</h2>
+        <Section css={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+          <h2>{blog?.pageTitle}</h2>
+          <RichText content={blog?.content} />
         </Section>
       </Banner>
       <Main>
         <Article>
           <Section>
-            <h2 style={{ marginBottom: '1em' }}>List of Posts</h2>
             <ul style={{ listStyleType: 'circle', marginLeft: '1em' }}>
               {data?.docs.map((post) => {
                 return (
