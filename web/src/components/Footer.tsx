@@ -6,9 +6,6 @@ import { Section } from './Layout';
 const Container = styled('footer', {
   backgroundColor: 'hsl(0,0%,10%)',
   color: 'white',
-  '@lg': {
-    gridArea: '3 / 1 / 4 / 4',
-  },
   py: '$6',
 });
 
