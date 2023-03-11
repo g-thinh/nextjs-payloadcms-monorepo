@@ -9,6 +9,7 @@ const Container = styled('footer', {
   '@lg': {
     gridArea: '3 / 1 / 4 / 4',
   },
+  py: '$6',
 });
 
 const Stack = styled('div', {
