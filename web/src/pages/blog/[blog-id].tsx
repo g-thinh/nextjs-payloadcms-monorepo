@@ -1,4 +1,5 @@
 import { Article, Banner, Content, Main, Section } from '@/components/Layout';
+import { RichText } from '@/components/RichText';
 import { getSinglePost } from '@/utils/api';
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next';
 import useSWR from 'swr';
@@ -42,17 +43,7 @@ export default function BlogPostPage({ post }: InferGetServerSidePropsType<typeo
         <Content>
           <Article>
             <Section>
-              <h3>Lorem Ipsum</h3>
-              <br />
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec pretium nibh quam, nec pellentesque est
-                tincidunt malesuada. Proin sed nibh id lacus elementum laoreet. Donec elementum nulla lobortis enim
-                egestas porta. Sed interdum mi id tellus congue porttitor. Duis vel porta mauris. Nunc id auctor leo.
-                Nulla bibendum neque a dui sollicitudin, nec volutpat ipsum tincidunt. Vestibulum maximus metus a justo
-                lacinia, vel volutpat massa mollis. Nam pharetra leo diam, quis pulvinar orci accumsan eget. Aliquam
-                lacinia leo sed velit auctor, vel dignissim arcu blandit. Curabitur sapien enim, tristique ac hendrerit
-                vitae, ultricies et urna.
-              </p>
+              <RichText content={data?.content} />
             </Section>
           </Article>
         </Content>
