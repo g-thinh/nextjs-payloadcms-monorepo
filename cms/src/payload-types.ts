@@ -15,6 +15,7 @@ export interface Config {
   };
   globals: {
     about: About;
+    blog: Blog;
   };
 }
 export interface Category {
@@ -81,6 +82,14 @@ export interface Media {
   updatedAt: string;
 }
 export interface About {
+  id: string;
+  pageTitle?: string;
+  content?: {
+    [k: string]: unknown;
+  }[];
+  status?: 'draft' | 'published';
+}
+export interface Blog {
   id: string;
   pageTitle?: string;
   content?: {

@@ -1,7 +1,7 @@
 import { GlobalConfig } from 'payload/types';
 
-const About: GlobalConfig = {
-  slug: 'about',
+const Blog: GlobalConfig = {
+  slug: 'blog',
   access: {
     read: () => true,
     update: () => true,
@@ -38,4 +38,4 @@ const About: GlobalConfig = {
   ],
 };
 
-export default About;
+export default Blog;

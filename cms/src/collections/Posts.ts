@@ -6,6 +6,7 @@ const Posts: CollectionConfig = {
     defaultColumns: ['title', 'author', 'category', 'tags', 'status'],
     useAsTitle: 'title',
   },
+
   access: {
     read: () => true,
   },
@@ -13,6 +14,7 @@ const Posts: CollectionConfig = {
     {
       name: 'title',
       type: 'text',
+      localized: true,
     },
     {
       name: 'author',
@@ -26,7 +28,7 @@ const Posts: CollectionConfig = {
     {
       name: 'category',
       type: 'relationship',
-      relationTo: 'categories'
+      relationTo: 'categories',
     },
     {
       name: 'tags',
@@ -36,7 +38,8 @@ const Posts: CollectionConfig = {
     },
     {
       name: 'content',
-      type: 'richText'
+      type: 'richText',
+      localized: true,
     },
     {
       name: 'status',
@@ -54,9 +57,9 @@ const Posts: CollectionConfig = {
       defaultValue: 'draft',
       admin: {
         position: 'sidebar',
-      }
-    }
+      },
+    },
   ],
-}
+};
 
 export default Posts;
