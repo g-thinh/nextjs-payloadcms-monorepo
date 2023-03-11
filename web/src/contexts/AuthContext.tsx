@@ -72,11 +72,7 @@ export function AuthProvider({ children }: React.PropsWithChildren<{}>) {
 
       const { user }: { user: User | null } = await response.json();
 
-      if (!user) {
-        router.push('/');
-      }
-
-      if (response.ok) {
+      if (user && response.ok) {
         setUser(user);
       }
     };
