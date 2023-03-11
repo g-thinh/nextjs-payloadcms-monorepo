@@ -4,38 +4,32 @@ import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next';
 import useSWR from 'swr';
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const { params } = context;
-  const id = params?.['blog-id'];
+  try {
+    const { params } = context;
+    const id = params?.['blog-id'];
 
-  if (!id || typeof id !== 'string') {
+    if (!id || typeof id !== 'string') {
+      return {
+        notFound: true,
+      };
+    }
+
+    const post = await getSinglePost(id);
+
     return {
-      redirect: {
-        destination: '/',
-        permanent: false,
+      props: {
+        post,
       },
     };
-  }
-
-  const post = await getSinglePost(id);
-
-  if (!post) {
+  } catch (e) {
     return {
-      redirect: {
-        destination: '/',
-        permanent: false,
-      },
+      notFound: true,
     };
   }
-
-  return {
-    props: {
-      post,
-    },
-  };
 }
 
 export default function BlogPostPage({ post }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  const { data } = useSWR([post.id], getSinglePost, { fallbackData: post });
+  const { data } = useSWR([post?.id], getSinglePost, { fallbackData: post });
 
   return (
     <>

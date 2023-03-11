@@ -5,6 +5,7 @@ import Posts from './collections/Posts';
 import Tags from './collections/Tags';
 import Users from './collections/Users';
 import Media from './collections/Media';
+import About from './globals/About';
 
 const serverURL = process.env.PAYLOAD_SERVER_URL;
 const clientURL = process.env.NEXT_CLIENT_URL;
@@ -17,6 +18,7 @@ export default buildConfig({
   cors: [serverURL, clientURL].filter(Boolean),
   csrf: [serverURL, clientURL],
   collections: [Categories, Posts, Tags, Users, Media],
+  globals: [About],
   typescript: {
     outputFile: path.resolve(__dirname, 'payload-types.ts'),
   },

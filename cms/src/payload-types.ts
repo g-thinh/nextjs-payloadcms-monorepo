@@ -13,7 +13,9 @@ export interface Config {
     users: User;
     media: Media;
   };
-  globals: {};
+  globals: {
+    about: About;
+  };
 }
 export interface Category {
   id: string;
@@ -77,4 +79,12 @@ export interface Media {
   };
   createdAt: string;
   updatedAt: string;
+}
+export interface About {
+  id: string;
+  pageTitle?: string;
+  content?: {
+    [k: string]: unknown;
+  }[];
+  status?: 'draft' | 'published';
 }
