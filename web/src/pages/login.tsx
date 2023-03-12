@@ -6,7 +6,7 @@ export default function LoginPage() {
   return (
     <>
       <Head>
-        <title>Login - Next Web App</title>
+        <title>Login - Next Payload Blog</title>
       </Head>
       <Main type="full">
         <Article>

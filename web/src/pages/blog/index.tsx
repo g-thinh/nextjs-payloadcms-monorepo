@@ -30,7 +30,7 @@ export default function BlogPage({ posts, blog, locale }: InferGetServerSideProp
   return (
     <>
       <Head>
-        <title>Blog - Next Web App</title>
+        <title>Blog - Next Payload Blog</title>
       </Head>
       <Banner>
         <Section css={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>

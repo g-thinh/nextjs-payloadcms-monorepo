@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Next Web App</title>
+        <title>Next Payload Blog</title>
       </Head>
       <Main>
         <Article>

@@ -37,7 +37,7 @@ export function Footer() {
     <Container css={{ mt: '$24' }}>
       <Section>
         <Stack>
-          <p>Next App</p>
+          <p>Next Payload Blog</p>
           <div>Made with ❤️ by Gia Thinh Nguyen</div>
           <StyledLink href="https://github.com/g-thinh/nextjs-payloadcms-monorepo" target="_blank">
             <GitHubLogoIcon />

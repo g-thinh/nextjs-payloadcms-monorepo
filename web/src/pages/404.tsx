@@ -5,7 +5,7 @@ export default function NotFoundPage() {
   return (
     <>
       <Head>
-        <title>Not Found | Next Web App</title>
+        <title>Not Found - Next Payload Blog</title>
       </Head>
       <Banner>
         <Article>

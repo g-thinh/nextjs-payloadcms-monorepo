@@ -31,7 +31,7 @@ export default function AboutPage({ about, locale }: InferGetStaticPropsType<typ
   return (
     <>
       <Head>
-        <title>{data?.pageTitle} - Next Web App</title>
+        <title>{data?.pageTitle} - Next Payload Blog</title>
       </Head>
       <Banner>
         <Section css={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>

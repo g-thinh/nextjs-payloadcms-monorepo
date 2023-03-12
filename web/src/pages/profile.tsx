@@ -38,7 +38,7 @@ export default function ProfilePage(props: InferGetServerSidePropsType<typeof ge
   return (
     <>
       <Head>
-        <title>Profile - Next Web App</title>
+        <title>Profile - Next Payload Blog</title>
       </Head>
       <Main>
         <Article>

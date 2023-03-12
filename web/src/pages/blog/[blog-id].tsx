@@ -39,7 +39,7 @@ export default function BlogPostPage({ post, locale }: InferGetServerSidePropsTy
   return (
     <>
       <Head>
-        <title>{data?.title} - Next Web App</title>
+        <title>{data?.title} - Next Payload Blog</title>
       </Head>
       <Banner>
         <Section css={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
