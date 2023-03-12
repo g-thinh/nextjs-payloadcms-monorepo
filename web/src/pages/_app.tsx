@@ -4,10 +4,11 @@ import { Layout } from '@/components/Layout';
 import { globalStyles } from '@/styles/stitches.config';
 import type { AppProps } from 'next/app';
 import { AuthProvider } from '@/contexts/AuthContext';
+import { appWithTranslation } from 'next-i18next';
 
 globalStyles();
 
-export default function App({ Component, pageProps }: AppProps) {
+function App({ Component, pageProps }: AppProps) {
   return (
     <AuthProvider>
       <Layout>
@@ -18,3 +19,5 @@ export default function App({ Component, pageProps }: AppProps) {
     </AuthProvider>
   );
 }
+
+export default appWithTranslation(App);

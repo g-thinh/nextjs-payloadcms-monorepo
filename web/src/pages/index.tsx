@@ -1,16 +1,30 @@
 import { Article, Main, Section } from '@/components/Layout';
+import { GetStaticPropsContext } from 'next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useTranslation } from 'next-i18next';
+
 import Head from 'next/head';
 
+export async function getStaticProps({ locale = 'en' }: GetStaticPropsContext) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ['common'])),
+    },
+  };
+}
+
 export default function Home() {
+  const { t } = useTranslation(['common']);
   return (
     <>
       <Head>
-        <title>Next Payload Blog</title>
+        <title>{t('common:title')}</title>
       </Head>
       <Main>
         <Article>
           <Section>
-            <h2>Welcome to your Next.js App</h2>
+            <h2>{t('common:welcome')}</h2>
+            <p></p>
           </Section>
         </Article>
       </Main>
