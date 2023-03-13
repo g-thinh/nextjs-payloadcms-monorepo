@@ -2,10 +2,12 @@ import { Article, Main, Section } from '@/components/Layout';
 import { User } from 'cms/src/payload-types';
 import { getCookie } from 'cookies-next';
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Head from 'next/head';
+import { useTranslation } from 'next-i18next';
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const { req, res } = context;
+  const { req, res, locale } = context;
   const payloadToken = getCookie('payload-token', { req, res });
   const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/users/me`, {
     credentials: 'include',
@@ -29,21 +31,25 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     return {
       props: {
         user,
+        ...(await serverSideTranslations(locale, ['common'])),
       },
     };
   }
 }
 
 export default function ProfilePage(props: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  const { t } = useTranslation(['common']);
   return (
     <>
       <Head>
-        <title>Profile - Next Payload Blog</title>
+        <title>
+          {t('common:profile.title')} - {t('common:title')}
+        </title>
       </Head>
       <Main>
         <Article>
           <Section>
-            <h2>My Profile</h2>
+            <h2>{t('common:profile.my-user')}</h2>
             <pre>{JSON.stringify(props.user, null, 2)}</pre>
           </Section>
         </Article>

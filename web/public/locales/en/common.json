@@ -1,4 +1,31 @@
 {
   "title": "Next Payload Blog",
-  "welcome": "Welcome to your Next.js App"
+  "welcome": "Welcome to your Next.js App",
+  "form-login": {
+    "title": "Login",
+    "text": "Enter your email and password to login to PayloadCMS",
+    "email": "Email",
+    "password": "Password",
+    "submit": "Login"
+  },
+  "footer": {
+    "text": "Made with ❤️ by Gia Thinh Nguyen"
+  },
+  "not-found": {
+    "title": "Not Found",
+    "text": "404 - The page you are looking found cannot be found"
+  },
+  "blog": {
+    "title": "Blog"
+  },
+  "profile": {
+    "title": "Profile",
+    "my-user": "My User"
+  },
+  "header": {
+    "about": "About",
+    "blog": "Blog",
+    "login": "Login",
+    "logout": "Logout"
+  }
 }

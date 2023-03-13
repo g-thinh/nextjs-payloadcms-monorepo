@@ -2,7 +2,9 @@ import { Article, Banner, Content, Main, Section } from '@/components/Layout';
 import { RichText } from '@/components/RichText';
 import { getSinglePost } from '@/utils/api';
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Head from 'next/head';
+import { useTranslation } from 'next-i18next';
 import useSWR from 'swr';
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
@@ -22,6 +24,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       props: {
         post,
         locale,
+        ...(await serverSideTranslations(locale, ['common'])),
       },
     };
   } catch (e) {
@@ -32,6 +35,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 }
 
 export default function BlogPostPage({ post, locale }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  const { t } = useTranslation(['common']);
   const { data } = useSWR([post?.id, locale], async () => post && (await getSinglePost(post?.id, { locale })), {
     fallbackData: post,
   });
@@ -39,7 +43,9 @@ export default function BlogPostPage({ post, locale }: InferGetServerSidePropsTy
   return (
     <>
       <Head>
-        <title>{data?.title} - Next Payload Blog</title>
+        <title>
+          {data?.title} - {t('common:title')}
+        </title>
       </Head>
       <Banner>
         <Section css={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>

@@ -1,6 +1,7 @@
 import { useAuth } from '@/contexts/AuthContext';
 import { styled } from '@/styles/stitches.config';
 import React, { useRef, useState } from 'react';
+import { useTranslation } from 'next-i18next';
 
 const Form = styled('form', {
   display: 'flex',
@@ -65,6 +66,7 @@ const ButtonSubmit = styled('button', {
 
 export function FormLogin() {
   const { login } = useAuth();
+  const { t } = useTranslation(['common']);
   const [error, setError] = useState<string>('');
   const emailRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
@@ -84,19 +86,19 @@ export function FormLogin() {
 
   return (
     <Form onSubmit={handleSubmit}>
-      <h2>Login</h2>
-      <p>Enter your email and password to login to PayloadCMS</p>
+      <h2>{t('common:form-login.title')}</h2>
+      <p>{t('common:form-login.text')}</p>
       <Row>
-        <Label>Email</Label>
+        <Label>{t('common:form-login.email')}</Label>
         <Input type="email" placeholder="thinh@example.com" required ref={emailRef} />
       </Row>
       <Row>
-        <Label>Password</Label>
+        <Label>{t('common:form-login.password')}</Label>
         <Input type="password" placeholder="secr3t_passw0rd" required ref={passwordRef} />
       </Row>
       <Row>{error && <TextError>{error}</TextError>}</Row>
       <div>
-        <ButtonSubmit type="submit">Login</ButtonSubmit>
+        <ButtonSubmit type="submit">{t('common:form-login.submit')}</ButtonSubmit>
       </div>
     </Form>
   );

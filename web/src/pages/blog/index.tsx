@@ -3,6 +3,8 @@ import { RichText } from '@/components/RichText';
 import { styled } from '@/styles/stitches.config';
 import { getBlogPage, getPosts } from '@/utils/api';
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useTranslation } from 'next-i18next';
 import Head from 'next/head';
 import NextLink from 'next/link';
 import useSWR from 'swr';
@@ -20,17 +22,21 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       posts,
       blog,
       locale,
+      ...(await serverSideTranslations(locale, ['common'])),
     },
   };
 }
 
 export default function BlogPage({ posts, blog, locale }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  const { t } = useTranslation(['common']);
   const { data } = useSWR(['/posts', locale], async () => await getPosts({ locale }), { fallbackData: posts });
 
   return (
     <>
       <Head>
-        <title>Blog - Next Payload Blog</title>
+        <title>
+          {t('common:blog.title')} - {t('common:title')}
+        </title>
       </Head>
       <Banner>
         <Section css={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>

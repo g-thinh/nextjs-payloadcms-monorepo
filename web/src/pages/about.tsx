@@ -2,7 +2,9 @@ import { Article, Banner, Main, Section } from '@/components/Layout';
 import { RichText } from '@/components/RichText';
 import { getAboutPage } from '@/utils/api';
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Head from 'next/head';
+import { useTranslation } from 'next-i18next';
 import useSWR from 'swr';
 
 export async function getStaticProps(context: GetStaticPropsContext) {
@@ -14,6 +16,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       props: {
         about,
         locale,
+        ...(await serverSideTranslations(locale, ['common'])),
       },
     };
   } catch (e) {
@@ -24,6 +27,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
 }
 
 export default function AboutPage({ about, locale }: InferGetStaticPropsType<typeof getStaticProps>) {
+  const { t } = useTranslation(['common']);
   const { data } = useSWR(['/about', locale], async () => await getAboutPage({ locale }), {
     fallbackData: about,
   });
@@ -31,7 +35,9 @@ export default function AboutPage({ about, locale }: InferGetStaticPropsType<typ
   return (
     <>
       <Head>
-        <title>{data?.pageTitle} - Next Payload Blog</title>
+        <title>
+          {data?.pageTitle} - {t('common:title')}
+        </title>
       </Head>
       <Banner>
         <Section css={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>

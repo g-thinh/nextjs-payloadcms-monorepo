@@ -2,10 +2,9 @@ import { Article, Main, Section } from '@/components/Layout';
 import { GetStaticPropsContext } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
-
 import Head from 'next/head';
 
-export async function getStaticProps({ locale = 'en' }: GetStaticPropsContext) {
+export async function getStaticProps({ locale }: GetStaticPropsContext) {
   return {
     props: {
       ...(await serverSideTranslations(locale, ['common'])),

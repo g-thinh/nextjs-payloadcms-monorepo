@@ -3,6 +3,7 @@ import { styled } from '@/styles/stitches.config';
 import NextLink from 'next/link';
 import { Section } from './Layout';
 import { SelectLocale } from './SelectLocale';
+import { useTranslation } from 'next-i18next';
 
 export const Container = styled('header', {
   position: 'sticky',
@@ -53,6 +54,7 @@ const Button = styled('button', {
 
 export function Header() {
   const { user, logout } = useAuth();
+  const { t } = useTranslation(['common']);
   return (
     <Container>
       <Section
@@ -64,7 +66,7 @@ export function Header() {
         }}
       >
         <h1>
-          <StyledLink href="/">Next Payload Blog</StyledLink>
+          <StyledLink href="/">{t('common:title')}</StyledLink>
         </h1>
         <nav>
           <ul>
@@ -72,19 +74,19 @@ export function Header() {
               <SelectLocale />
             </li>
             <li>
-              <StyledLink href="/about">About</StyledLink>
+              <StyledLink href="/about">{t('header.about')}</StyledLink>
             </li>
             <li>
-              <StyledLink href="/blog">Blog</StyledLink>
+              <StyledLink href="/blog">{t('header.blog')}</StyledLink>
             </li>
 
             {user ? (
               <li>
-                <Button onClick={logout}>Logout</Button>
+                <Button onClick={logout}>{t('header.logout')}</Button>
               </li>
             ) : (
               <li>
-                <StyledLink href="/login">Login</StyledLink>
+                <StyledLink href="/login">{t('header.login')}</StyledLink>
               </li>
             )}
           </ul>

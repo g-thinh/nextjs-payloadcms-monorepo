@@ -1,6 +1,7 @@
 import { styled } from '@/styles/stitches.config';
 import { GitHubLogoIcon } from '@radix-ui/react-icons';
 import NextLink from 'next/link';
+import { useTranslation } from 'next-i18next';
 import { Section } from './Layout';
 
 const Container = styled('footer', {
@@ -33,12 +34,13 @@ const StyledLink = styled(NextLink, {
 });
 
 export function Footer() {
+  const { t } = useTranslation(['common']);
   return (
     <Container css={{ mt: '$24' }}>
       <Section>
         <Stack>
-          <p>Next Payload Blog</p>
-          <div>Made with ❤️ by Gia Thinh Nguyen</div>
+          <p>{t('common:title')}</p>
+          <div>{t('common:footer.text')}</div>
           <StyledLink href="https://github.com/g-thinh/nextjs-payloadcms-monorepo" target="_blank">
             <GitHubLogoIcon />
             <span>Github</span>
