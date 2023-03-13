@@ -5,11 +5,17 @@ import { useTranslation } from 'next-i18next';
 import Head from 'next/head';
 
 export async function getStaticProps({ locale }: GetStaticPropsContext) {
-  return {
-    props: {
-      ...(await serverSideTranslations(locale, ['common'])),
-    },
-  };
+  try {
+    return {
+      props: {
+        ...(await serverSideTranslations(locale, ['common'])),
+      },
+    };
+  } catch (e) {
+    return {
+      notFound: true,
+    };
+  }
 }
 
 export default function Home() {

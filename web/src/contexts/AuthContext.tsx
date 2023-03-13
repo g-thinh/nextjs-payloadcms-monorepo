@@ -66,14 +66,18 @@ export function AuthProvider({ children }: React.PropsWithChildren<{}>) {
 
   useEffect(() => {
     const fetchMe = async () => {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/users/me`, {
-        credentials: 'include',
-      });
+      try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/users/me`, {
+          credentials: 'include',
+        });
 
-      const { user }: { user: User | null } = await response.json();
+        const { user }: { user: User | null } = await response.json();
 
-      if (user && response.ok) {
-        setUser(user);
+        if (user && response.ok) {
+          setUser(user);
+        }
+      } catch (e) {
+        console.error(e);
       }
     };
 

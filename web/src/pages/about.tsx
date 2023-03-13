@@ -7,9 +7,8 @@ import Head from 'next/head';
 import { useTranslation } from 'next-i18next';
 import useSWR from 'swr';
 
-export async function getStaticProps(context: GetStaticPropsContext) {
+export async function getStaticProps({ locale }: GetStaticPropsContext) {
   try {
-    const { locale } = context;
     const about = await getAboutPage({ locale });
 
     return {

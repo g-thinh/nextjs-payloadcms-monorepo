@@ -13,18 +13,23 @@ const PostLink = styled(NextLink, {
   listStyleType: 'circle',
 });
 
-export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const { locale } = context;
-  const posts = await getPosts({ locale });
-  const blog = await getBlogPage({ locale });
-  return {
-    props: {
-      posts,
-      blog,
-      locale,
-      ...(await serverSideTranslations(locale, ['common'])),
-    },
-  };
+export async function getServerSideProps({ locale }: GetServerSidePropsContext) {
+  try {
+    const posts = await getPosts({ locale });
+    const blog = await getBlogPage({ locale });
+    return {
+      props: {
+        posts,
+        blog,
+        locale,
+        ...(await serverSideTranslations(locale, ['common'])),
+      },
+    };
+  } catch (e) {
+    return {
+      notFound: true,
+    };
+  }
 }
 
 export default function BlogPage({ posts, blog, locale }: InferGetServerSidePropsType<typeof getServerSideProps>) {

@@ -7,9 +7,8 @@ import Head from 'next/head';
 import { useTranslation } from 'next-i18next';
 import useSWR from 'swr';
 
-export async function getServerSideProps(context: GetServerSidePropsContext) {
+export async function getServerSideProps({ params, locale }: GetServerSidePropsContext) {
   try {
-    const { params, locale } = context;
     const id = params?.['blog-id'];
 
     if (!id || typeof id !== 'string') {

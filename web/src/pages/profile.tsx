@@ -6,33 +6,38 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Head from 'next/head';
 import { useTranslation } from 'next-i18next';
 
-export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const { req, res, locale } = context;
-  const payloadToken = getCookie('payload-token', { req, res });
-  const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/users/me`, {
-    credentials: 'include',
-    headers: {
-      Authorization: `JWT ${payloadToken}`,
-    },
-  });
-
-  const { user }: { user: User | null } = await response.json();
-
-  if (!user) {
-    return {
-      redirect: {
-        destination: '/',
-        permanent: false,
+export async function getServerSideProps({ req, res, locale }: GetServerSidePropsContext) {
+  try {
+    const payloadToken = getCookie('payload-token', { req, res });
+    const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/users/me`, {
+      credentials: 'include',
+      headers: {
+        Authorization: `JWT ${payloadToken}`,
       },
-    };
-  }
+    });
 
-  if (response.ok) {
+    const { user }: { user: User | null } = await response.json();
+
+    if (!user) {
+      return {
+        redirect: {
+          destination: '/',
+          permanent: false,
+        },
+      };
+    }
+
+    if (response.ok) {
+      return {
+        props: {
+          user,
+          ...(await serverSideTranslations(locale, ['common'])),
+        },
+      };
+    }
+  } catch (e) {
     return {
-      props: {
-        user,
-        ...(await serverSideTranslations(locale, ['common'])),
-      },
+      notFound: true,
     };
   }
 }
