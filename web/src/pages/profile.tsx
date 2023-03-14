@@ -12,6 +12,7 @@ export async function getServerSideProps({ req, res, locale }: GetServerSideProp
     const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/users/me`, {
       credentials: 'include',
       headers: {
+        'Content-Type': 'application/json',
         Authorization: `JWT ${payloadToken}`,
       },
     });
