@@ -21,9 +21,6 @@ export function AuthProvider({ children }: React.PropsWithChildren<{}>) {
   const login = async (email: string, password: string) => {
     const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/users/login`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
       credentials: 'include',
       body: JSON.stringify({
         email,
@@ -46,9 +43,6 @@ export function AuthProvider({ children }: React.PropsWithChildren<{}>) {
   const logout = async () => {
     const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/users/logout`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
       credentials: 'include',
     });
 
@@ -69,9 +63,6 @@ export function AuthProvider({ children }: React.PropsWithChildren<{}>) {
       try {
         const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/users/me`, {
           credentials: 'include',
-          headers: {
-            'Content-Type': 'application/json',
-          },
         });
 
         const { user }: { user: User | null } = await response.json();
