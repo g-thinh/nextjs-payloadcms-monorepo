@@ -22,6 +22,9 @@ export function AuthProvider({ children }: React.PropsWithChildren<{}>) {
     const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/users/login`, {
       method: 'POST',
       credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify({
         email,
         password,
