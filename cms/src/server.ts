@@ -1,8 +1,7 @@
-import dotenv from 'dotenv';
 import express from 'express';
 import payload from 'payload';
 
-dotenv.config();
+require('dotenv').config();
 
 const PORT = process.env.PAYLOAD_PORT || 8080;
 
