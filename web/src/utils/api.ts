@@ -1,10 +1,10 @@
 import { PaginatedDocs } from 'payload/dist/mongoose/types';
-import { About, Blog, Post } from 'cms/src/payload-types';
+import { About, Blog, Post, User } from 'cms/src/payload-types';
 
 export const CMS_BASE_URL = process.env.NEXT_PUBLIC_SERVER_URL;
 
 type JsonResponse<T> = T & { errors?: Error[] };
-
+type LoginResponse = { user: User | null };
 type Options = {
   locale?: 'en' | 'fr' | string;
 };
@@ -104,6 +104,32 @@ export async function getAboutPage(options?: Options) {
 
     if (response.ok) {
       return json;
+    }
+  } catch (e: unknown) {
+    console.error(e);
+    throw new Error(e as string);
+  }
+}
+
+export async function getMe(payloadToken?: string) {
+  try {
+    const headers: RequestInit['headers'] = {
+      'Content-Type': 'application/json',
+    };
+
+    if (payloadToken) {
+      headers.Authorization = `JWT ${payloadToken}`;
+    }
+
+    const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/users/me`, {
+      credentials: 'include',
+      headers,
+    });
+
+    const { user }: LoginResponse = await response.json();
+
+    if (response.ok) {
+      return user;
     }
   } catch (e: unknown) {
     console.error(e);

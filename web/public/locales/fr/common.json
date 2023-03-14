@@ -25,6 +25,7 @@
   "header": {
     "about": "À propos",
     "blog": "Articles",
+    "profile": "Profil",
     "login": "Connexion",
     "logout": "Se déconnecter"
   }

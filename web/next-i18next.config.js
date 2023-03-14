@@ -6,8 +6,8 @@ module.exports = {
     locales: ['en', 'fr'],
     defaultLocale: 'en',
     localeDetection: false,
-    localePath: path.resolve('./public/locales'),
   },
+  localePath: path.resolve('./public/locales'),
   //re-render on changes to locales
   reloadOnPrerender: true,
 };

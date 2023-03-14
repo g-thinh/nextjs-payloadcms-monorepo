@@ -81,9 +81,14 @@ export function Header() {
             </li>
 
             {user ? (
-              <li>
-                <Button onClick={logout}>{t('header.logout')}</Button>
-              </li>
+              <>
+                <li>
+                  <StyledLink href="/profile">{t('header.profile')}</StyledLink>
+                </li>
+                <li>
+                  <Button onClick={logout}>{t('header.logout')}</Button>
+                </li>
+              </>
             ) : (
               <li>
                 <StyledLink href="/login">{t('header.login')}</StyledLink>

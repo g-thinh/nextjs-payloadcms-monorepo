@@ -5,21 +5,14 @@ import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Head from 'next/head';
 import { useTranslation } from 'next-i18next';
+import useSWR from 'swr';
+import { getMe } from '@/utils/api';
 
 export async function getServerSideProps({ req, res, locale }: GetServerSidePropsContext) {
   try {
     const payloadToken = getCookie('payload-token', { req, res });
-    const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/users/me`, {
-      credentials: 'include',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `JWT ${payloadToken}`,
-      },
-    });
 
-    const { user }: { user: User | null } = await response.json();
-
-    if (!user) {
+    if (!payloadToken) {
       return {
         redirect: {
           destination: '/',
@@ -28,14 +21,14 @@ export async function getServerSideProps({ req, res, locale }: GetServerSideProp
       };
     }
 
-    if (response.ok) {
-      return {
-        props: {
-          user,
-          ...(await serverSideTranslations(locale, ['common'])),
-        },
-      };
-    }
+    const user = await getMe(payloadToken.toString());
+
+    return {
+      props: {
+        user,
+        ...(await serverSideTranslations(locale, ['common'])),
+      },
+    };
   } catch (e) {
     return {
       notFound: true,
@@ -43,8 +36,10 @@ export async function getServerSideProps({ req, res, locale }: GetServerSideProp
   }
 }
 
-export default function ProfilePage(props: InferGetServerSidePropsType<typeof getServerSideProps>) {
+export default function ProfilePage({ user }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  const { data } = useSWR(['/profile', user.id], async () => await getMe(), { fallbackData: user });
   const { t } = useTranslation(['common']);
+
   return (
     <>
       <Head>
@@ -56,7 +51,7 @@ export default function ProfilePage(props: InferGetServerSidePropsType<typeof ge
         <Article>
           <Section>
             <h2>{t('common:profile.my-user')}</h2>
-            <pre>{JSON.stringify(props.user, null, 2)}</pre>
+            <pre>{JSON.stringify(data, null, 2)}</pre>
           </Section>
         </Article>
       </Main>

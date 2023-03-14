@@ -25,6 +25,7 @@
   "header": {
     "about": "About",
     "blog": "Blog",
+    "profile": "Profile",
     "login": "Login",
     "logout": "Logout"
   }
