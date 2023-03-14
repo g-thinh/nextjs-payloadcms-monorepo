@@ -64,6 +64,10 @@ export async function getBlogPage(options?: Options) {
     const response = await fetch(url, {
       method: 'GET',
       credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      },
     });
 
     const json: JsonResponse<Blog> = await response.json();
