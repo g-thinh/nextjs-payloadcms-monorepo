@@ -66,7 +66,6 @@ export async function getBlogPage(options?: Options) {
       credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': process.env.NEXT_PUBLIC_WEB_URL,
       },
     });
 
@@ -92,6 +91,9 @@ export async function getAboutPage(options?: Options) {
     const response = await fetch(url, {
       method: 'GET',
       credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
     });
 
     const json: JsonResponse<About> = await response.json();
