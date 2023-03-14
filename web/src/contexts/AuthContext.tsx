@@ -23,6 +23,7 @@ export function AuthProvider({ children }: React.PropsWithChildren<{}>) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': process.env.NEXT_PUBLIC_WEB_URL,
       },
       credentials: 'include',
       body: JSON.stringify({
@@ -48,6 +49,7 @@ export function AuthProvider({ children }: React.PropsWithChildren<{}>) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': process.env.NEXT_PUBLIC_WEB_URL,
       },
       credentials: 'include',
     });
@@ -69,6 +71,10 @@ export function AuthProvider({ children }: React.PropsWithChildren<{}>) {
       try {
         const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/users/me`, {
           credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': process.env.NEXT_PUBLIC_WEB_URL,
+          },
         });
 
         const { user }: { user: User | null } = await response.json();
