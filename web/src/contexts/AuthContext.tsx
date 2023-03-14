@@ -47,6 +47,9 @@ export function AuthProvider({ children }: React.PropsWithChildren<{}>) {
     const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/users/logout`, {
       method: 'POST',
       credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
     });
 
     const { errors, message }: LogoutResponse = await response.json();
@@ -66,6 +69,9 @@ export function AuthProvider({ children }: React.PropsWithChildren<{}>) {
       try {
         const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/users/me`, {
           credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+          },
         });
 
         const { user }: { user: User | null } = await response.json();
