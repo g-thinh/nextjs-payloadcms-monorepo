@@ -2,7 +2,12 @@ import { CollectionConfig } from 'payload/types';
 
 const Users: CollectionConfig = {
   slug: 'users',
-  auth: true,
+  auth: {
+    cookies: {
+      secure: true,
+      sameSite: 'none',
+    },
+  },
   admin: {
     useAsTitle: 'email',
   },
@@ -14,7 +19,7 @@ const Users: CollectionConfig = {
     {
       name: 'name',
       type: 'text',
-    }
+    },
   ],
 };
 
