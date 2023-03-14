@@ -3,7 +3,7 @@ import payload from 'payload';
 
 require('dotenv').config();
 
-const PORT = process.env.PAYLOAD_PORT || 8080;
+const PORT = process.env.PAYLOAD_PORT || 3000;
 
 const app = express();
 

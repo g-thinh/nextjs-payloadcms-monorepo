@@ -16,6 +16,9 @@ export default buildConfig({
   admin: {
     user: Users.slug,
   },
+  rateLimit: {
+    trustProxy: true,
+  },
   cors: [serverURL, clientURL].filter(Boolean),
   csrf: [serverURL, clientURL],
   collections: [Categories, Posts, Tags, Users, Media],
