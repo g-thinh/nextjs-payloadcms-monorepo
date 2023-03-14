@@ -66,7 +66,7 @@ export async function getBlogPage(options?: Options) {
       credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Origin': process.env.NEXT_PUBLIC_WEB_URL,
       },
     });
 
