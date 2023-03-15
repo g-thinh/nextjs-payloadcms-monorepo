@@ -1,31 +1,15 @@
+import { AuthGuard } from '@/components/AuthGuard';
 import { Article, Main, Section } from '@/components/Layout';
-import { User } from 'cms/src/payload-types';
-import { getCookie } from 'cookies-next';
-import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next';
+import { useAuth } from '@/contexts/AuthContext';
+import { GetStaticPropsContext, InferGetStaticPropsType } from 'next';
+import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Head from 'next/head';
-import { useTranslation } from 'next-i18next';
-import useSWR from 'swr';
-import { getMe } from '@/utils/api';
 
-export async function getServerSideProps({ req, res, locale }: GetServerSidePropsContext) {
+export async function getStaticProps({ locale }: GetStaticPropsContext) {
   try {
-    const payloadToken = getCookie('payload-token', { req, res });
-
-    if (!payloadToken) {
-      return {
-        redirect: {
-          destination: '/',
-          permanent: false,
-        },
-      };
-    }
-
-    const user = await getMe(payloadToken.toString());
-
     return {
       props: {
-        user,
         ...(await serverSideTranslations(locale, ['common'])),
       },
     };
@@ -36,12 +20,12 @@ export async function getServerSideProps({ req, res, locale }: GetServerSideProp
   }
 }
 
-export default function ProfilePage({ user }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  const { data } = useSWR(['/profile', user.id], async () => await getMe(), { fallbackData: user });
+export default function ProfilePage(_props: InferGetStaticPropsType<typeof getStaticProps>) {
+  const { user } = useAuth();
   const { t } = useTranslation(['common']);
 
   return (
-    <>
+    <AuthGuard>
       <Head>
         <title>
           {t('common:profile.title')} - {t('common:title')}
@@ -51,10 +35,10 @@ export default function ProfilePage({ user }: InferGetServerSidePropsType<typeof
         <Article>
           <Section>
             <h2>{t('common:profile.my-user')}</h2>
-            <pre>{JSON.stringify(data, null, 2)}</pre>
+            <pre>{JSON.stringify(user, null, 2)}</pre>
           </Section>
         </Article>
       </Main>
-    </>
+    </AuthGuard>
   );
 }

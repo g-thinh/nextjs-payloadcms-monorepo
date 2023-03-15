@@ -1,10 +1,12 @@
+import { getMe } from '@/utils/api';
 import type { User } from 'cms/src/payload-types';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import useSWR from 'swr';
 import createContext from './createContext';
 
 interface AuthContext {
   user: User | null;
+  isLoading: boolean;
   login: (email: string, password: string) => void;
   logout: () => void;
 }
@@ -16,7 +18,7 @@ export const [useAuth, CtxProvider] = createContext<AuthContext>();
 
 export function AuthProvider({ children }: React.PropsWithChildren<{}>) {
   const router = useRouter();
-  const [user, setUser] = useState<User | null>(null);
+  const { data: user, isLoading, mutate } = useSWR(['/profile'], async () => await getMe());
 
   const login = async (email: string, password: string) => {
     const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/users/login`, {
@@ -38,7 +40,7 @@ export function AuthProvider({ children }: React.PropsWithChildren<{}>) {
     }
 
     if (response.ok) {
-      setUser(user);
+      mutate();
       router.push('/profile');
     }
   };
@@ -59,33 +61,10 @@ export function AuthProvider({ children }: React.PropsWithChildren<{}>) {
     }
 
     if (response.ok) {
-      setUser(null);
+      mutate();
       router.push('/');
     }
   };
 
-  useEffect(() => {
-    const fetchMe = async () => {
-      try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/users/me`, {
-          credentials: 'include',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
-
-        const { user }: { user: User | null } = await response.json();
-
-        if (user && response.ok) {
-          setUser(user);
-        }
-      } catch (e) {
-        console.error(e);
-      }
-    };
-
-    fetchMe();
-  }, []);
-
-  return <CtxProvider value={{ user, login, logout }}>{children}</CtxProvider>;
+  return <CtxProvider value={{ user, isLoading, login, logout }}>{children}</CtxProvider>;
 }
