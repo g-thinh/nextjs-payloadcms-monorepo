@@ -40,8 +40,7 @@ export function AuthProvider({ children }: React.PropsWithChildren<{}>) {
     }
 
     if (response.ok) {
-      mutate();
-      router.push('/profile');
+      await mutate().then(() => router.push('/profile'));
     }
   };
 
@@ -61,8 +60,7 @@ export function AuthProvider({ children }: React.PropsWithChildren<{}>) {
     }
 
     if (response.ok) {
-      mutate();
-      router.push('/');
+      await mutate().then(() => router.push('/'));
     }
   };
 
