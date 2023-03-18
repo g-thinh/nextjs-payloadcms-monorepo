@@ -1,7 +1,7 @@
 import { createStitches } from '@stitches/react';
 import type * as Stitches from '@stitches/react';
 
-export const { styled, css, globalCss, getCssText, config } = createStitches({
+export const { styled, css, globalCss, getCssText, config, keyframes } = createStitches({
   theme: {
     fonts: {
       untitled: 'Untitled Sans, apple-system, sans-serif',

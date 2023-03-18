@@ -1,7 +1,8 @@
 import { useAuth } from '@/contexts/AuthContext';
 import { styled } from '@/styles/stitches.config';
-import React, { useRef, useState } from 'react';
 import { useTranslation } from 'next-i18next';
+import { useForm } from 'react-hook-form';
+import { LoadingDots } from './LoadingDots';
 
 const Form = styled('form', {
   display: 'flex',
@@ -64,41 +65,49 @@ const ButtonSubmit = styled('button', {
   },
 });
 
+type FormData = {
+  email: string;
+  password: string;
+};
+
 export function FormLogin() {
   const { login } = useAuth();
+  const {
+    register,
+    setError,
+    clearErrors,
+    handleSubmit,
+    formState: { isSubmitting, errors },
+  } = useForm<FormData>({ mode: 'onSubmit', reValidateMode: 'onSubmit' });
   const { t } = useTranslation(['common']);
-  const [error, setError] = useState<string>('');
-  const emailRef = useRef<HTMLInputElement | null>(null);
-  const passwordRef = useRef<HTMLInputElement | null>(null);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleOnSubmit = handleSubmit(async (form) => {
     try {
-      if (emailRef.current && passwordRef.current) {
-        await login(emailRef.current.value, passwordRef.current.value);
-        setError('');
-      }
+      await login(form.email, form.password);
+      clearErrors();
     } catch (e) {
       const error = e as Error;
-      setError(error.message);
+      setError('root', { message: error.message });
     }
-  };
+  });
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form onSubmit={handleOnSubmit}>
       <h2>{t('common:form-login.title')}</h2>
       <p>{t('common:form-login.text')}</p>
       <Row>
         <Label>{t('common:form-login.email')}</Label>
-        <Input type="email" placeholder="thinh@example.com" required ref={emailRef} />
+        <Input type="email" placeholder="thinh@example.com" {...register('email', { required: true })} />
+        {errors.email?.type === 'required' && <TextError>Please enter your email.</TextError>}
       </Row>
       <Row>
         <Label>{t('common:form-login.password')}</Label>
-        <Input type="password" placeholder="secr3t_passw0rd" required ref={passwordRef} />
+        <Input type="password" placeholder="secr3t_passw0rd" {...register('password', { required: true })} />
+        {errors.password?.type === 'required' && <TextError>Please enter your password.</TextError>}
       </Row>
-      <Row>{error && <TextError>{error}</TextError>}</Row>
-      <div>
-        <ButtonSubmit type="submit">{t('common:form-login.submit')}</ButtonSubmit>
+      <Row>{errors.root && <TextError>{errors.root.message}</TextError>}</Row>
+      <div style={{ display: 'flex', alignItems: 'center' }}>
+        <ButtonSubmit type="submit">{isSubmitting ? <LoadingDots /> : t('common:form-login.submit')}</ButtonSubmit>
       </div>
     </Form>
   );
