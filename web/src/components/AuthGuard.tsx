@@ -23,9 +23,9 @@ export function AuthGuard({ children, redirectUrl = '/' }: AuthGuardProps) {
     if (!user && !isLoading) {
       router.push(redirectUrl);
     }
-  }, []);
+  }, [isLoading]);
 
-  if (isLoading) {
+  if (isLoading || !user) {
     return <LoadingContainer>...Loading</LoadingContainer>;
   }
 
