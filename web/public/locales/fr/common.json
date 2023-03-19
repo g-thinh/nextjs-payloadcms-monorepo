@@ -6,7 +6,29 @@
     "text": "Entrez votre email et votre mot de passe pour vous connecter à PayloadCMS",
     "email": "Courriel",
     "password": "Mot de passe",
-    "submit": "Se connecter"
+    "submit": "Se connecter",
+    "signup-cta": "Vous n'avez pas de compte? Cliquez <0>ici</0> pour vous inscrire.",
+    "errors": {
+      "required-email": "Veuillez entrer votre courriel.",
+      "required-password": "Veuillez entrer votre mot de passe."
+    }
+  },
+  "form-signup": {
+    "title": "Inscription",
+    "text": "Remplissez le formulaire ci-dessous pour créer votre compte avec PayloadCMS.",
+    "username": "Nom d'utilisateur",
+    "email": "Courriel",
+    "password": "Mot de passe",
+    "confirm-password": "Confirmez votre mot de passe",
+    "submit": "Soumettre",
+    "login-cta": "Vous avez déjà un compte? Cliquez <0>ici</0> to pour vous connecter.",
+    "errors": {
+      "required-username": "Veuillez entrer votre nom d'utilisateur.",
+      "required-email": "Veuillez entrer votre courriel.",
+      "required-password": "Veuillez entrer votre mot de passe.",
+      "required-confirm-password": "Veuillez confirmer mot de passe.",
+      "validate-password": "Vos mots de passe ne correspondent pas."
+    }
   },
   "footer": {
     "text": "Fait avec ❤️ by Gia Thinh Nguyen"
