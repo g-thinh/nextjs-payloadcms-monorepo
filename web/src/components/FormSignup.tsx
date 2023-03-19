@@ -1,17 +1,16 @@
+import { useAuth, CreateUserDto } from '@/contexts/AuthContext';
 import { Trans, useTranslation } from 'next-i18next';
 import NextLink from 'next/link';
 import { useForm } from 'react-hook-form';
 import { ButtonSubmit, Form, Input, Label, Row, TextError } from './Form';
 import { LoadingDots } from './LoadingDots';
 
-type FormSignupData = {
-  username: string;
-  email: string;
-  password: string;
+type FormSignupData = CreateUserDto & {
   confirmPassword: string;
 };
 
 export function FormSignup() {
+  const { create } = useAuth();
   const {
     register,
     setError,
@@ -24,6 +23,7 @@ export function FormSignup() {
 
   const handleOnSubmit = handleSubmit(async (form) => {
     try {
+      await create(form);
       clearErrors();
     } catch (e) {
       const error = e as Error;
@@ -42,11 +42,9 @@ export function FormSignup() {
       <h2>{t('form-signup.title')}</h2>
       <p>{t('common:form-signup.text')}</p>
       <Row>
-        <Label>{t('common:form-signup.username')}</Label>
-        <Input type="text" placeholder="e.g. John Doe" {...register('username', { required: true })} />
-        {errors.username?.type === 'required' && (
-          <TextError>{t('common:form-signup.errors.required-username')}</TextError>
-        )}
+        <Label>{t('common:form-signup.name')}</Label>
+        <Input type="text" placeholder="e.g. John Doe" {...register('name', { required: true })} />
+        {errors.name?.type === 'required' && <TextError>{t('common:form-signup.errors.required-name')}</TextError>}
       </Row>
       <Row>
         <Label>{t('common:form-signup.email')}</Label>

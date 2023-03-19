@@ -16,14 +16,14 @@
   "form-signup": {
     "title": "Sign Up",
     "text": "Fill out the form below to create your account with PayloadCMS.",
-    "username": "Username",
+    "name": "Name",
     "email": "Email",
     "password": "Password",
     "confirm-password": "Confirm Password",
     "submit": "Submit",
     "login-cta": "Already have an account? Click <0>here</0> to login.",
     "errors": {
-      "required-username": "Please enter your username.",
+      "required-name": "Please enter your username.",
       "required-email": "Please enter your email.",
       "required-password": "Please enter your password.",
       "required-confirm-password": "Please confirm your password.",

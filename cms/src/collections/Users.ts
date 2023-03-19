@@ -13,9 +13,10 @@ const Users: CollectionConfig = {
   },
   access: {
     read: () => true,
+    create: () => true,
   },
   fields: [
-    // Email added by default
+    // Email/Password added by default for Auth
     {
       name: 'name',
       type: 'text',
