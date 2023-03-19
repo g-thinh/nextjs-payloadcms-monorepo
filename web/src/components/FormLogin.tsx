@@ -49,7 +49,7 @@ const TextError = styled('p', {
 
 const ButtonSubmit = styled('button', {
   px: '$4',
-  py: '$2',
+  height: '2.5em',
   backgroundColor: 'hsl(0,0%, 0%)',
   color: 'white',
   border: '1px solid black',

@@ -11,8 +11,8 @@ const flashing = keyframes({
 
 const Dots = styled('div', {
   position: 'relative',
-  width: 10,
-  height: 10,
+  width: 8,
+  height: 8,
   borderRadius: 5,
   backgroundColor: 'white',
   color: 'white',
@@ -27,9 +27,9 @@ const Dots = styled('div', {
   },
 
   '&::before': {
-    left: -15,
-    width: 10,
-    height: 10,
+    left: -12,
+    width: 8,
+    height: 8,
     borderRadius: 5,
     backgroundColor: 'white',
     color: 'white',
@@ -38,9 +38,9 @@ const Dots = styled('div', {
   },
 
   '&::after': {
-    left: 15,
-    width: 10,
-    height: 10,
+    left: 12,
+    width: 8,
+    height: 8,
     borderRadius: 5,
     backgroundColor: 'white',
     color: 'white',

@@ -36,7 +36,7 @@ const StyledLink = styled(NextLink, {
 
 const Button = styled('button', {
   px: '$4',
-  py: '$2',
+  height: '2.5em',
   backgroundColor: 'hsl(1,0%, 100%)',
   color: 'black',
   border: '1px solid black',
